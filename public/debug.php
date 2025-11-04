@@ -1,30 +1,30 @@
 <?php
-echo "✅ Git deployment from D drive is working!<br>";
+echo "<h1>🔄 Testing Meri Zindgi Website</h1>";
 echo "PHP Version: " . phpversion() . "<br>";
-echo "Current time: " . date('Y-m-d H:i:s') . "<br>";
-echo "File location: " . __FILE__ . "<br>";
+echo "Time: " . date('Y-m-d H:i:s') . "<br>";
 
-// Check if Laravel files exist
-$files = [
+// Check critical files
+$critical_files = [
     '../vendor/autoload.php' => 'Vendor Autoload',
-    '../bootstrap/app.php' => 'Bootstrap App', 
-    '../app/Http/Kernel.php' => 'HTTP Kernel',
-    '../composer.json' => 'Composer Config'
+    '../bootstrap/app.php' => 'Bootstrap File',
+    '../app/Http/Kernel.php' => 'Kernel File'
 ];
 
-foreach ($files as $file => $description) {
-    if (file_exists($file)) {
-        echo "✅ $description: EXISTS<br>";
-    } else {
-        echo "❌ $description: MISSING<br>";
+foreach ($critical_files as $file => $desc) {
+    echo (file_exists($file) ? "✅" : "❌") . " $desc<br>";
+}
+
+// Test if we can load Laravel
+if (file_exists('../vendor/autoload.php')) {
+    try {
+        require_once '../vendor/autoload.php';
+        echo "✅ Vendor autoload loaded successfully<br>";
+    } catch (Exception $e) {
+        echo "❌ Error loading vendor: " . $e->getMessage() . "<br>";
     }
 }
 
-echo "<h3>All files in public folder:</h3>";
-$public_files = scandir(__DIR__);
-foreach ($public_files as $file) {
-    if ($file != '.' && $file != '..') {
-        echo "📄 $file<br>";
-    }
-}
+echo "<hr><h3>Next steps:</h3>";
+echo "1. If you see ✅ for vendor autoload, Laravel is working<br>";
+echo "2. If you see ❌, we need to add missing files to GitHub";
 ?>
